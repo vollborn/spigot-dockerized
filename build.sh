@@ -1,18 +1,23 @@
 #!/bin/bash
 
-version=${1}
+
+envFile=spigot.env
+
+
+# read env file
+
+if [ -f ${envFile} ]; then
+	export $(cat ${envFile} | sed 's/#.*//g' | xargs)
+fi
 
 
 # Parameter check
 
-if [ -z ${version} ]; then
-	echo "Please specify a java version."
+if [ -z ${JAVA_VERSION} ]; then
+	echo "Please specify a java version in your ${envFile} file."
+	echo "All versions except 1.17 will run on Java 8. 1.17 requires Java 16."
 	echo ""
-	echo " -> ./build.sh {version}"
-	echo ""
-	echo "All minecraft servers below 1.17 will run with Java 8."
-	echo "1.17 and above will need Java 16."
-	echo ""
+	echo "Example entry: JAVA_VERSION=16"
 	exit
 fi
 
@@ -27,4 +32,4 @@ fi
 
 # docker build 
 
-docker build . --build-arg JAVA_VERSION=${version} -t spigot-dockerized
+docker build . --build-arg JAVA_VERSION=${JAVA_VERSION} -t spigot-dockerized

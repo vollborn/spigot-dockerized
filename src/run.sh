@@ -1,9 +1,9 @@
 #!/bin/bash
 
-basePath="/opt/servers"
+serverPath="/opt/server"
 
-if [ ! -d "${basePath}" ]; then
-	echo "Please pass the ${basePath} directory for persistent storage!"
+if [ ! -d "${serverPath}" ]; then
+	echo "Please pass the ${serverPath} directory for persistent storage!"
 	exit
 fi
 
@@ -27,14 +27,8 @@ echo "Memory Min   →   ${ramMin}"
 echo "Memory Max   →   ${ramMax}"
 echo ""
 
-# Create server directory
 
-if [ ! -d "${basePath}/${version}" ]; then
-	echo "Creating server directory..."
-	mkdir ${basePath}/${version}
-fi
-
-cd ${basePath}/${version}
+cd ${serverPath}
 
 
 # Download server.jar
@@ -65,10 +59,9 @@ echo ""
 java -jar -Xms${ramMin} -Xmx${ramMax} server.jar
 
 
-# Server crash
+# Server stop
 
 echo ""
 echo ""
-echo "Server crashed. Stopping..."
+echo "Server stopped."
 exit
-

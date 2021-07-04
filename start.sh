@@ -1,19 +1,25 @@
 #!/bin/bash
 
 
-# set to static values to start without parameters
+envFile=spigot.env
 
-version="1.17"
-ramMax=3072M
-ramMin=512M
-storage=/opt/minecraft-servers
+
+# read env file
+
+if [ -f ${envFile} ]; then
+	export $(cat ${envFile} | sed 's/#.*//g' | xargs)
+fi
 
 
 # parameter check
 
-if [ -z ${version} ] || [ -z ${ramMax} ] || [ -z ${ramMin} ]; then
-	echo "Please specify a minecraft version."
-	echo " -> ./start.sh {version}"
+if [ -z ${VERSION} ] \
+    || [ -z ${MEMORY_MAX} ] \
+    || [ -z ${MEMORY_MIN} ] \
+	|| [ -z ${SERVER_DIRECTORY} ]
+then
+	echo "Your ${envFile} file seems to miss some values."
+	echo "Please check the documentation!"
 	exit
 fi
 
@@ -26,13 +32,25 @@ if [ "${EUID}" -ne 0 ]; then
 fi
 
 
+# create server directory
+
+if [ ! -d "${SERVER_DIRECTORY}" ]; then
+	mkdir -p "${SERVER_DIRECTORY}"
+fi
+
+
+# start in detached mode
+
+attachParam="-it"
+if [[ "${1}" == "-d" ]]; then
+	attachParam="-dt"
+fi
+
 # start docker
 
 docker run \
-	-it \
-	-v ${storage}:/opt/servers \
+	${attachParam} \
+	-v ${SERVER_DIRECTORY}:/opt/server \
 	-p 25565:25565 \
-	--env VERSION=${version} \
-	--env RAM_MAX=${ramMax} \
-	--env RAM_MIN=${ramMin} \
+	--env-file ${envFile} \
 	spigot-dockerized:latest
