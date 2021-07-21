@@ -2,6 +2,7 @@
 
 This is spigot! In a docker container. Who would have thought?
 
+<br />
 
 ## Prerequesites
 
@@ -11,6 +12,7 @@ There are some things you will need beforehand.
 - root privileges
 - Docker installed
 
+<br />
 
 ## Setup
 
@@ -39,6 +41,24 @@ Select your local folder where the server files should be stored.
 SERVER_DIRECTORY=/opt/minecraft-server
 ```
 
+<br />
+
+## Build the docker
+
+You need to build the docker locally before you can start the server.
+
+Make the build script executeable
+```
+chmod +x ./build.sh
+```
+
+Run the build script
+
+```
+sudo ./build.sh
+```
+
+<br />
 
 ## Start the server
 
