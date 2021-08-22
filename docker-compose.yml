@@ -8,17 +8,17 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-      args: 
-        JAVA_VERSION: 16
+      args:
+        JAVA_VERSION: "${JAVA_VERSION:-16}"
 
     ports:
       - "${PORT:-25565}:25565"
 
     environment:
-      VERSION: "1.17"
-      MEMORY_MAX: "2048M"
-      MEMORY_MIN: "512M"
-      EULA: "true"
+      VERSION: "${VERSION:-1.17}"
+      MEMORY_MAX: "${MEMORY_MAX:-2048M}"
+      MEMORY_MIN: "${MEMORY_MIN:-512M}"
+      EULA: "${EULA:-false}"
 
     volumes:
       - "${SERVER_DIRECTORY:-/opt/minecraft-server}:/opt/minecraft-server"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "${4}" != "true" ]; then
 	echo "Please accept the eula first."
