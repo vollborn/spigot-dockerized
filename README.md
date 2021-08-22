@@ -8,15 +8,22 @@ This is spigot! In a docker container. Who would have thought?
 
 There are some things you will need beforehand.
 
-- a server running Linux
 - root privileges
-- Docker installed
+- Docker & Docker Compose
+- a working internet connection
 
 <br />
 
 ## Setup
 
-First of all you need to change the entries in the *spigot.env* file if needed.
+First you need to copy the *.env.example* file to *.env* and edit its entries, if needed.
+```shell
+# Linux & Mac
+cp .env.example .env
+
+# Windows
+copy .env.example .env
+```
 
 Select your desired minecraft version.
 ```
@@ -47,32 +54,19 @@ SERVER_DIRECTORY=/opt/minecraft-server
 
 You need to build the docker locally before you can start the server.
 
-Make the build script executeable
-```
-chmod +x ./build.sh
-```
-
-Run the build script
-
-```
-sudo ./build.sh
+```shell
+sudo docker-compose build
 ```
 
 <br />
 
 ## Start the server
 
-Make the start script executeable
-```
-chmod +x ./start.sh
-```
-
-Run the start script with root privileges
-```
-sudo ./start.sh
+```shell
+sudo docker-compose up
 ```
 
-You can start the docker detached too
-```
-sudo ./start.sh -d
+... or in detached mode
+```shell
+sudo docker-compose up -d
 ```

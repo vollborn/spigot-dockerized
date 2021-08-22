@@ -1,6 +1,11 @@
 #!/bin/bash
 
-serverPath="/opt/server"
+if [ "${4}" != "true" ]; then
+	echo "Please accept the eula first."
+	exit
+fi
+
+serverPath="/opt/minecraft-server"
 
 if [ ! -d "${serverPath}" ]; then
 	echo "Please pass the ${serverPath} directory for persistent storage!"
