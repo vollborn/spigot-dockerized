@@ -5,7 +5,10 @@ if [ "${EULA}" != "true" ]; then
 	exit
 fi
 
+serverJar="spigot-${VERSION}.jar"
 serverPath="/opt/minecraft-server"
+serverJarPath="${serverPath}/${serverJar}"
+
 buildToolsPath="/opt/build-tools"
 buildToolsJarPath="${buildToolsPath}/BuildTools.jar"
 
@@ -58,7 +61,12 @@ if [ "${BUILD_ON_START}" == "true" ]; then
 	echo "Building..."
 	echo "This may take a while."
 	echo ""
-	if [ -f "${serverPath}/server.jar" ]; then
+
+	if [ -d work ]; then
+		rm -r work
+	fi
+
+	if [ -f "${serverJarPath}" ]; then
 		java -jar BuildTools.jar --rev ${VERSION} --compile-if-changed
 	else
 		java -jar BuildTools.jar --rev ${VERSION}
@@ -68,8 +76,8 @@ if [ "${BUILD_ON_START}" == "true" ]; then
 
 	# Move builded file
 
-	if [ -f "./spigot-${VERSION}.jar" ]; then
-		mv "./spigot-${VERSION}.jar" "${serverPath}/server.jar"
+	if [ -f "./${serverJar}" ]; then
+		mv "./${serverJar}" "${serverJarPath}"
 	fi
 
 	cd "${serverPath}"
@@ -82,10 +90,10 @@ else
 
 	if [ ! -f "./server.jar" ]; then
 		echo "Downloading server.jar..."
-		curl -o server.jar  https://cdn.getbukkit.org/spigot/spigot-${VERSION}.jar &> /dev/null
+		curl -o "${serverJar}"  https://cdn.getbukkit.org/spigot/spigot-${VERSION}.jar &> /dev/null
 
-		if [ ! -f "./server.jar" ]; then
-			echo "Server.jar could not be downloaded. Aborting..."
+		if [ ! -f "./${serverJar}" ]; then
+			echo "${serverJar} could not be downloaded. Aborting..."
 			exit
 		fi
 	fi
@@ -105,7 +113,7 @@ fi
 
 echo "Starting server..."
 echo ""
-java -jar -Xms${MEMORY_MIN} -Xmx${MEMORY_MAX} server.jar
+java -jar -Xms${MEMORY_MIN} -Xmx${MEMORY_MAX} ${serverJar}
 
 
 # Server stop
