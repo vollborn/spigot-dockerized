@@ -18,7 +18,9 @@ services:
       VERSION: "${VERSION:-1.17}"
       MEMORY_MAX: "${MEMORY_MAX:-2048M}"
       MEMORY_MIN: "${MEMORY_MIN:-512M}"
+      BUILD_ON_START: "${BUILD_ON_START:-false}"
       EULA: "${EULA:-false}"
 
     volumes:
-      - "${SERVER_DIRECTORY:-/opt/minecraft-server}:/opt/minecraft-server"
+      - "${SERVER_DIRECTORY:-/opt/spigot-dockerized/server}:/opt/minecraft-server"
+      - "${BUILD_TOOLS_DIRECTORY:-/opt/spigot-dockerized/build-tools}:/opt/build-tools"
