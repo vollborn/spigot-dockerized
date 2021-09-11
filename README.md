@@ -14,9 +14,9 @@ There are some things you will need beforehand.
 
 <br />
 
-## Setup
+## Configuration
 
-First you need to copy the *.env.example* file to *.env* and edit its entries, if needed.
+1. Copy the *.env.example* file to *.env* and edit its entries, if needed.
 ```shell
 # Linux & Mac
 cp .env.example .env
@@ -25,27 +25,37 @@ cp .env.example .env
 copy .env.example .env
 ```
 
-Select your desired minecraft version.
+2. Select your desired minecraft version.
 ```
 VERSION=1.17
 ```
 
-Specify the java version you want to use.
-<br />**Important**: Minecraft 1.17 will only work with Java 16. All other versions will run with Java 8.
+3. Depending on your Minecraft version, you will need a different Java version.
 ```
 JAVA_VERSION=16
 ```
 
-Specify your maximal and minimal memory that can be used.
-<br />Use **M** as unit for megabytes and **G** for gigabytes.
+| Minecraft Version | Java Version |
+|-------------------|--------------|
+| 1.17              | 16           |
+| 1.12 - 1.16       | 11           |
+| 1.8 - 1.11        | 8            |
+
+4. Specify your maximal and minimal memory that can be used. Use **M** as unit for megabytes and **G** for gigabytes.
 ```
 MEMORY_MAX=2048M
 MEMORY_MIN=512M
 ```
 
-Select your local folder where the server files should be stored.
+5. Select your local folder where the server files should be stored.
 ```
-SERVER_DIRECTORY=/opt/minecraft-server
+SERVER_DIRECTORY=/opt/spigot-dockerized/server
+```
+
+6. If you want to rebuild and update your Spigot version on every restart, you need to set **BUILD_ON_START** to true and define a persistent build tools directory.
+```
+BUILD_ON_START=true
+BUILD_TOOLS_DIRECTORY=/opt/spigot-dockerized/build-tools
 ```
 
 <br />
