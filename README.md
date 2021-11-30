@@ -27,16 +27,17 @@ copy .env.example .env
 
 2. Select your desired minecraft version.
 ```
-VERSION=1.17
+VERSION=1.18
 ```
 
 3. Depending on your Minecraft version, you will need a different Java version.
 ```
-JAVA_VERSION=16
+JAVA_VERSION=17
 ```
 
 | Minecraft Version | Java Version |
 |-------------------|--------------|
+| 1.18              | 17           |
 | 1.17              | 16           |
 | 1.12 - 1.16       | 11           |
 | 1.8 - 1.11        | 8            |
