@@ -6,7 +6,7 @@ LABEL maintainer="vollborn <oliver.vollborn@gmail.com>"
 LABEL version="1.0"
 LABEL description="a simple spigot server container"
 
-ENV VERSION 1.17
+ENV VERSION 1.21
 ENV MEMORY_MAX 2048M
 ENV MEMORY_MIN 512M
 ENV BUILD_ON_START false

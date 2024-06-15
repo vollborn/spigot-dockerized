@@ -56,7 +56,7 @@ if [ "${BUILD_ON_START}" == "true" ]; then
 
 	# Build spigot.jar
 
-	cd "${buildToolsPath}"
+	cd "${buildToolsPath}" || exit
 
 	echo "Building..."
 	echo "This may take a while."
@@ -80,24 +80,7 @@ if [ "${BUILD_ON_START}" == "true" ]; then
 		mv "./${serverJar}" "${serverJarPath}"
 	fi
 
-	cd "${serverPath}"
-
-else
-
-	cd "${serverPath}"
-
-	# Download server.jar
-
-	if [ ! -f "./server.jar" ]; then
-		echo "Downloading server.jar..."
-		curl -o "${serverJar}"  https://cdn.getbukkit.org/spigot/spigot-${VERSION}.jar &> /dev/null
-
-		if [ ! -f "./${serverJar}" ]; then
-			echo "${serverJar} could not be downloaded. Aborting..."
-			exit
-		fi
-	fi
-
+	cd "${serverPath}" || exit
 fi
 
 

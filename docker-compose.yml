@@ -1,26 +1,21 @@
-version: '3.1'
+version: '3.8'
 
 services:
-
   spigot-dockerized:
     image: spigot-dockerized
-
     build:
       context: ./src
       dockerfile: Dockerfile
       args:
-        JAVA_VERSION: "${JAVA_VERSION:-16}"
-
+        JAVA_VERSION: "${JAVA_VERSION:-21}"
     ports:
       - "${PORT:-25565}:25565"
-
     environment:
       VERSION: "${VERSION:-1.17}"
       MEMORY_MAX: "${MEMORY_MAX:-2048M}"
       MEMORY_MIN: "${MEMORY_MIN:-512M}"
       BUILD_ON_START: "${BUILD_ON_START:-false}"
       EULA: "${EULA:-false}"
-
     volumes:
       - "${SERVER_DIRECTORY:-/opt/spigot-dockerized/server}:/opt/minecraft-server"
       - "${BUILD_TOOLS_DIRECTORY:-/opt/spigot-dockerized/build-tools}:/opt/build-tools"
